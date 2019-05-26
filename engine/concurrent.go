@@ -62,6 +62,7 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 func createWorker(in chan Request, out chan ParseResult, ready ReadyNotifiter) {
 	go func() {
 		for {
+			//将Request chan send to Schedule的 workChan
 			ready.WorkerReady(in)
 			request := <-in
 			result, err := worker(request)
